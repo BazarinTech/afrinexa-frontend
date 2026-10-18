@@ -23,15 +23,17 @@ const navItems = [
  * label, and each one is a full-height column of equal width, so the target
  * is the size of a thumb rather than the size of the icon.
  *
- * It renders a spacer of its own height in normal flow ahead of itself, so
- * pages lay out relative to the bar and nothing ends up underneath it.
+ * It renders a spacer in normal flow ahead of itself, so pages lay out
+ * relative to the bar and nothing ends up underneath it. The spacer is the
+ * bar's height plus a gap: flush to the pixel, a button at the end of a page
+ * looks wedged under the bar even though it clears it.
  */
 export function BottomNav() {
   const pathname = usePathname()
 
   return (
     <>
-      <div aria-hidden style={{ height: "calc(4.5rem + env(safe-area-inset-bottom))" }} />
+      <div aria-hidden style={{ height: "calc(4.5rem + 1.5rem + env(safe-area-inset-bottom))" }} />
 
       <nav
         className="border-border bg-background/95 fixed inset-x-0 bottom-0 z-50 border-t backdrop-blur-lg"
