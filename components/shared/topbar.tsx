@@ -2,13 +2,13 @@
 import { useRouter } from "next/navigation"
 import { ArrowLeft01Icon } from "hugeicons-react"
 import { cn } from "@/lib/utils"
-import { AfinexaLogo } from "./brand-logo"
+import { AfrinexaLogo } from "./brand-logo"
 
 type Props = {
   className?: string
   title: string
   backBtn?: boolean
-  /** Show the Afinexa logo in place of the text title. `title` stays as the accessible name. */
+  /** Show the Afrinexa logo in place of the text title. `title` stays as the accessible name. */
   brand?: boolean
   /** Optional second line under the title -- a route, a count, a state. */
   caption?: string
@@ -46,7 +46,7 @@ function Topbar({ className, title, backBtn, brand, caption }: Props) {
         {brand ? (
           <>
             <h1 className="sr-only">{title}</h1>
-            <AfinexaLogo size="sm" />
+            <AfrinexaLogo size="sm" />
           </>
         ) : (
           <div className="min-w-0">

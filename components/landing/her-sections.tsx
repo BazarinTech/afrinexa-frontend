@@ -19,7 +19,7 @@ export function HeroSection() {
         <div className="text-center lg:text-left">
           <p className="text-eyebrow inline-flex items-center gap-2 rounded-full bg-accent px-3 py-1.5 text-accent-foreground">
             <span className="size-1.5 rounded-full bg-primary" />
-            Welcome to Afinexa
+            Welcome to Afrinexa
           </p>
 
           <h1 className="mt-6 text-4xl font-semibold text-balance text-foreground sm:text-5xl lg:text-6xl">

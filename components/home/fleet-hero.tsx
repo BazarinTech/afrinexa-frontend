@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight01Icon, Car03Icon } from "hugeicons-react"
 import { useMainStore } from "@/lib/stores/use-main-store"
-import { AfinexaLogo } from "@/components/shared/brand-logo"
+import { AfrinexaLogo } from "@/components/shared/brand-logo"
 import { RoadScene, CarSilhouette } from "@/components/shared/road-scene"
 
 const HOURS = [
@@ -72,7 +72,7 @@ export function FleetHero({ name }: { name?: string }) {
       <div className="from-ink via-ink/75 pointer-events-none absolute inset-0 bg-gradient-to-r to-transparent" />
 
       <div className="relative px-5 pt-5 pb-6">
-        <AfinexaLogo size="sm" inverse />
+        <AfrinexaLogo size="sm" inverse />
 
         <p className="text-ink-foreground/55 mt-6 text-sm">
           {greeting}{firstName ? `, ${firstName}` : ""}

@@ -37,7 +37,7 @@ export function ContactSection() {
         </div>
       </div>
       <p className="mt-6 text-center text-xs text-muted-foreground">
-        &copy; {new Date().getFullYear()} Afinexa. All rights reserved.
+        &copy; {new Date().getFullYear()} Afrinexa. All rights reserved.
       </p>
     </div>
   )

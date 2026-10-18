@@ -1,4 +1,4 @@
-# Afinexa
+# Afrinexa
 
 A mobile-first web app with a car-hire story: members put a car on the road, collect its hire every day, top up and cash out via M-Pesa, and earn commission from a three-level partner network.
 

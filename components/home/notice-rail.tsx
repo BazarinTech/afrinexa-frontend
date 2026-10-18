@@ -37,7 +37,7 @@ const NOTICES = [
 ]
 
 // One standing reminder, kept in the run because it is worth meeting often.
-const SAFETY_LINE = "Your PIN stays yours. Afinexa will never ask for it."
+const SAFETY_LINE = "Your PIN stays yours. Afrinexa will never ask for it."
 
 /** How each kind of entry in your own history reads as it passes. */
 function lineFor(type: string, amount: string) {

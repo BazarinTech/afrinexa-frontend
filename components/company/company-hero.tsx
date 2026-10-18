@@ -1,4 +1,4 @@
-import { AfinexaMark } from "@/components/shared/brand-logo"
+import { AfrinexaMark } from "@/components/shared/brand-logo"
 
 // Replaces "5K+ Workers / 200+ Partners / 50+ Cities", which had no source.
 const pillars = [
@@ -12,11 +12,11 @@ export function CompanyHero() {
     <div className="bg-hero relative overflow-hidden px-4 pt-10 pb-8">
       <div className="flex flex-col items-center gap-4 text-center">
         <div className="flex size-20 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
-          <AfinexaMark size={52} title="Afinexa" />
+          <AfrinexaMark size={52} title="Afrinexa" />
         </div>
         <div>
           <p className="text-eyebrow text-sky">The company behind</p>
-          <h1 className="mt-1 text-2xl font-semibold uppercase tracking-[0.24em] text-ink-foreground">Afinexa</h1>
+          <h1 className="mt-1 text-2xl font-semibold uppercase tracking-[0.24em] text-ink-foreground">Afrinexa</h1>
           <p className="mt-2 text-sm text-ink-foreground/70">Fleet · Partners · Wallet</p>
         </div>
         <dl className="mt-2 flex gap-6">

@@ -32,8 +32,8 @@ export function WelcomeModal() {
           outside, and "Get started" all still close the dialog. */}
       <DialogContent showCloseButton={false} className="mx-auto max-w-sm gap-0 overflow-hidden border-0 p-0">
         <BrandBanner
-          eyebrow="Afinexa"
-          title="Welcome to Afinexa"
+          eyebrow="Afrinexa"
+          title="Welcome to Afrinexa"
           className="rounded-none shadow-none"
         />
 
@@ -41,7 +41,7 @@ export function WelcomeModal() {
           <div>
             {/* Visually carried by the banner above; kept for screen readers,
                 which need a dialog title to announce. */}
-            <DialogTitle className="sr-only">Welcome to Afinexa</DialogTitle>
+            <DialogTitle className="sr-only">Welcome to Afrinexa</DialogTitle>
             <DialogDescription className="text-sm leading-relaxed text-muted-foreground">
               Put a car on the road, collect its hire{" "}
               <span className="font-medium text-foreground">every day</span>, and earn from the

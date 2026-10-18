@@ -22,7 +22,7 @@ function Page() {
 
   return (
     <div>
-      <Topbar title="Afinexa" brand />
+      <Topbar title="Afrinexa" brand />
 
       {/* The board, top to bottom: where you stand and the one thing to do
           next, the controls within thumb reach, word from the desk, then how

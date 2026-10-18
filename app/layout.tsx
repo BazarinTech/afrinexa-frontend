@@ -17,11 +17,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Afinexa",
-    template: "%s · Afinexa",
+    default: "Afrinexa",
+    template: "%s · Afrinexa",
   },
   description: "Put a car on the road, collect daily rental income, and cash out over M-Pesa.",
-  applicationName: "Afinexa",
+  applicationName: "Afrinexa",
 };
 
 // Tints the mobile browser chrome to match the ink night surfaces.

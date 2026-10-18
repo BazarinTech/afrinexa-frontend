@@ -3,7 +3,7 @@
 import LogoutAlert from '@/components/alerts/logout-alert'
 import { BottomNav } from '@/components/shared/bottombar'
 import Topbar from '@/components/shared/topbar'
-import { AfinexaMark } from '@/components/shared/brand-logo'
+import { AfrinexaMark } from '@/components/shared/brand-logo'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useCurrency } from '@/lib/hooks/use-currency'
 import { useMainStore } from '@/lib/stores/use-main-store'
@@ -49,7 +49,7 @@ const menuGroups: { label: string; items: MenuItem[] }[] = [
       { icon: CustomerServiceIcon, label: "Support", href: process.env.NEXT_PUBLIC_CUSTOMER_SUPPORT ?? "" },
       { icon: WhatsappIcon, label: "WhatsApp", href: process.env.NEXT_PUBLIC_WHATSAPP_GROUP ?? "" },
       { icon: TelegramIcon, label: "Telegram", href: process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL ?? "" },
-      { icon: InformationSquareIcon, label: "About Afinexa", href: "/company" },
+      { icon: InformationSquareIcon, label: "About Afrinexa", href: "/company" },
       { icon: Download02Icon, label: "Get the app", href: "https://apk.e-droid.net/apk/app3980533-tdv41u.apk?v=2" },
     ],
   },
@@ -113,7 +113,7 @@ function Page() {
               )}
             </div>
             <div className="flex shrink-0 flex-col items-end gap-2">
-              <AfinexaMark size={34} title="Afinexa" />
+              <AfrinexaMark size={34} title="Afrinexa" />
               {!loading && (
                 <span className="text-eyebrow text-sky rounded-md bg-white/10 px-2 py-0.5">{wallet?.level}</span>
               )}

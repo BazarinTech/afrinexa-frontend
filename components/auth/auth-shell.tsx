@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { AfinexaLogo } from "@/components/shared/brand-logo"
+import { AfrinexaLogo } from "@/components/shared/brand-logo"
 
 type Props = {
   title: string
@@ -29,8 +29,8 @@ export function AuthShell({ title, subtitle, children, footer, home = "/login" }
         <div className="bg-hero relative px-6 pt-6 pb-7">
           <div className="bg-stitch-dark absolute inset-0 opacity-60" />
           <div className="relative">
-            <Link href={home} aria-label="Afinexa">
-              <AfinexaLogo size="sm" inverse />
+            <Link href={home} aria-label="Afrinexa">
+              <AfrinexaLogo size="sm" inverse />
             </Link>
             <h1 className="text-ink-foreground mt-6 text-2xl leading-tight font-semibold">{title}</h1>
             <p className="text-ink-foreground/60 mt-1.5 text-sm">{subtitle}</p>

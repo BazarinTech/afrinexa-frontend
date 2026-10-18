@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { AfinexaLogo } from "./brand-logo"
+import { AfrinexaLogo } from "./brand-logo"
 import { RoadScene } from "./road-scene"
 
 type Props = {
@@ -42,7 +42,7 @@ export function BrandBanner({
       <RoadScene className="absolute inset-0 -z-10" />
 
       <div className={cn("relative flex h-full flex-col", large ? "gap-6" : "gap-4")}>
-        {showLogo && <AfinexaLogo size={large ? "md" : "sm"} inverse />}
+        {showLogo && <AfrinexaLogo size={large ? "md" : "sm"} inverse />}
 
         <div className={cn("max-w-md", large ? "mt-auto pt-10" : "mt-auto pt-4")}>
           {eyebrow && <p className="text-eyebrow text-sky">{eyebrow}</p>}

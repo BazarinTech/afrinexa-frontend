@@ -10,14 +10,14 @@ type MarkProps = {
 }
 
 /**
- * The Afinexa mark: an A cut from a road.
+ * The Afrinexa mark: an A cut from a road.
  *
  * The two strokes of the letter are the edges of a carriageway running to the
  * horizon, with the crossbar as a lane marking. Inline SVG rather than an
  * image so it stays sharp at every size; app/icon.svg is drawn from the same
  * paths.
  */
-export function AfinexaMark({ size = 32, className, title }: MarkProps) {
+export function AfrinexaMark({ size = 32, className, title }: MarkProps) {
   // SVG gradient ids are document-global, so two marks on one page would
   // otherwise share a single definition. useId yields ":r1:"-style ids, and
   // colons are not safe inside url(#...).
@@ -66,12 +66,12 @@ const LOGO_SIZES = {
 } as const
 
 /** Mark plus the wordmark. */
-export function AfinexaLogo({ size = "md", inverse = false, className }: LogoProps) {
+export function AfrinexaLogo({ size = "md", inverse = false, className }: LogoProps) {
   const { mark, text } = LOGO_SIZES[size]
 
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <AfinexaMark size={mark} />
+      <AfrinexaMark size={mark} />
       <span
         className={cn(
           "font-semibold tracking-[0.22em] uppercase",
@@ -79,7 +79,7 @@ export function AfinexaLogo({ size = "md", inverse = false, className }: LogoPro
           inverse ? "text-ink-foreground" : "text-foreground",
         )}
       >
-        Afinexa
+        Afrinexa
       </span>
     </span>
   )
