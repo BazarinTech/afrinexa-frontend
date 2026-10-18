@@ -18,10 +18,10 @@ const navItems = [
 /**
  * The bottom bar.
  *
- * A dark rail against the pale app, fixed on the bottom edge. Labels are not
- * printed under every icon: the tab you are on opens into a blue pill with
- * its name beside the icon, and the rest stay as plain marks, so the bar
- * reads as one object rather than five columns.
+ * White ground, blue for the tab you are on: a pale blue panel behind the
+ * whole column with a blue rule across the top of it. Every tab keeps its
+ * label, and each one is a full-height column of equal width, so the target
+ * is the size of a thumb rather than the size of the icon.
  *
  * It renders a spacer of its own height in normal flow ahead of itself, so
  * pages lay out relative to the bar and nothing ends up underneath it.
@@ -31,14 +31,13 @@ export function BottomNav() {
 
   return (
     <>
-      <div aria-hidden style={{ height: "calc(4.25rem + env(safe-area-inset-bottom))" }} />
+      <div aria-hidden style={{ height: "calc(4.5rem + env(safe-area-inset-bottom))" }} />
 
       <nav
-        className="bg-ink fixed inset-x-0 bottom-0 z-50"
+        className="border-border bg-background/95 fixed inset-x-0 bottom-0 z-50 border-t backdrop-blur-lg"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
-        <div className="lane-dashes" />
-        <div className="mx-auto flex h-[4.25rem] max-w-md items-center justify-between gap-1 px-3">
+        <div className="mx-auto flex h-[4.5rem] max-w-md items-stretch gap-1 px-2 py-2">
           {navItems.map((item) => {
             const isActive = pathname === item.href
             const Icon = item.icon
@@ -48,18 +47,20 @@ export function BottomNav() {
                 key={item.href}
                 href={item.href}
                 aria-current={isActive ? "page" : undefined}
-                aria-label={item.label}
                 className={cn(
-                  "flex h-11 items-center justify-center gap-2 rounded-full transition-all duration-200",
+                  "relative flex flex-1 flex-col items-center justify-center gap-1.5 rounded-xl transition-colors",
                   isActive
-                    ? "bg-primary text-primary-foreground flex-1 px-4"
-                    : "text-ink-foreground/55 hover:text-ink-foreground w-11 shrink-0 active:scale-95",
+                    ? "bg-accent text-primary"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground active:bg-muted",
                 )}
               >
-                <Icon size={21} strokeWidth={isActive ? 2 : 1.5} />
                 {isActive && (
-                  <span className="text-[0.8125rem] font-semibold whitespace-nowrap">{item.label}</span>
+                  <span className="bg-primary absolute inset-x-3 top-0 h-[3px] rounded-full" />
                 )}
+                <Icon size={22} strokeWidth={isActive ? 2 : 1.5} />
+                <span className={cn("text-[0.6875rem] leading-none", isActive ? "font-semibold" : "font-medium")}>
+                  {item.label}
+                </span>
               </Link>
             )
           })}
