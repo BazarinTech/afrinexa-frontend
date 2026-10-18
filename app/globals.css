@@ -1,0 +1,306 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* Cloud Farmer brand extensions. */
+  --color-brand-deep: var(--brand-deep);
+  --color-sky: var(--sky);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-chrome: var(--chrome);
+  --color-beam: var(--beam);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --font-heading: var(--font-sans);
+}
+
+/*
+ * Afinexa -- light theme.
+ *
+ * Fleet blue on white, carried on cool greys. Blue is the only chromatic
+ * colour in the chrome; amber is a headlight beam and a warning, never
+ * decoration. "Ink" is the near-black blue of a car park at night, used for
+ * every dark surface.
+ */
+:root {
+  --background: oklch(0.984 0.003 247.9);
+  --foreground: oklch(0.193 0.02 257.3);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.193 0.02 257.3);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.193 0.02 257.3);
+  --primary: oklch(0.513 0.197 263.4);
+  --primary-foreground: oklch(0.99 0.004 247);
+  --secondary: oklch(0.951 0.008 251.2);
+  --secondary-foreground: oklch(0.193 0.02 257.3);
+  --muted: oklch(0.966 0.005 249.8);
+  --muted-foreground: oklch(0.513 0.024 256.4);
+  --accent: oklch(0.954 0.021 254.6);
+  --accent-foreground: oklch(0.442 0.166 263.9);
+  --destructive: oklch(0.547 0.188 27.5);
+  --border: oklch(0.924 0.008 252.1);
+  --input: oklch(0.888 0.012 253.4);
+  --ring: oklch(0.513 0.197 263.4);
+  --radius: 0.375rem;
+
+  --brand-deep: oklch(0.384 0.158 264.2);
+  /* The accent used on dark surfaces: daylight blue, not a paler brand blue. */
+  --sky: oklch(0.812 0.102 249.8);
+  --chrome: oklch(0.676 0.083 253.1);
+  --beam: oklch(0.812 0.138 79.4);
+  --ink: oklch(0.196 0.025 258.4);
+  --ink-2: oklch(0.268 0.036 259.6);
+  --ink-foreground: oklch(0.976 0.005 247.9);
+  --success: oklch(0.556 0.132 155.6);
+  --success-soft: oklch(0.955 0.025 157.1);
+  --warning: oklch(0.63 0.136 68.2);
+  --warning-soft: oklch(0.963 0.03 83.5);
+
+  --chart-1: oklch(0.513 0.197 263.4);
+  --chart-2: oklch(0.676 0.083 253.1);
+  --chart-3: oklch(0.384 0.158 264.2);
+  --chart-4: oklch(0.812 0.138 79.4);
+  --chart-5: oklch(0.513 0.024 256.4);
+
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.193 0.02 257.3);
+  --sidebar-primary: oklch(0.513 0.197 263.4);
+  --sidebar-primary-foreground: oklch(0.99 0.004 247);
+  --sidebar-accent: oklch(0.954 0.021 254.6);
+  --sidebar-accent-foreground: oklch(0.442 0.166 263.9);
+  --sidebar-border: oklch(0.924 0.008 252.1);
+  --sidebar-ring: oklch(0.513 0.197 263.4);
+}
+
+.dark {
+  --background: oklch(0.196 0.025 258.4);
+  --foreground: oklch(0.966 0.005 249.8);
+  --card: oklch(0.239 0.029 258.9);
+  --card-foreground: oklch(0.966 0.005 249.8);
+  --popover: oklch(0.239 0.029 258.9);
+  --popover-foreground: oklch(0.966 0.005 249.8);
+  --primary: oklch(0.654 0.182 261.3);
+  --primary-foreground: oklch(0.196 0.025 258.4);
+  --secondary: oklch(0.282 0.031 258.1);
+  --secondary-foreground: oklch(0.966 0.005 249.8);
+  --muted: oklch(0.282 0.031 258.1);
+  --muted-foreground: oklch(0.724 0.022 254.9);
+  --accent: oklch(0.289 0.043 259.7);
+  --accent-foreground: oklch(0.846 0.084 254.3);
+  --destructive: oklch(0.65 0.179 27.2);
+  --border: oklch(0.326 0.031 257.6);
+  --input: oklch(0.372 0.034 257.2);
+  --ring: oklch(0.654 0.182 261.3);
+
+  --brand-deep: oklch(0.513 0.197 263.4);
+  --sky: oklch(0.846 0.084 254.3);
+  --chrome: oklch(0.724 0.062 254.1);
+  --beam: oklch(0.812 0.138 79.4);
+  --ink: oklch(0.162 0.022 258.4);
+  --ink-2: oklch(0.249 0.034 259.6);
+  --ink-foreground: oklch(0.976 0.005 247.9);
+  --success: oklch(0.696 0.142 156.3);
+  --success-soft: oklch(0.252 0.032 157.4);
+  --warning: oklch(0.78 0.126 76.1);
+  --warning-soft: oklch(0.256 0.03 76.1);
+
+  --chart-1: oklch(0.654 0.182 261.3);
+  --chart-2: oklch(0.846 0.084 254.3);
+  --chart-3: oklch(0.513 0.197 263.4);
+  --chart-4: oklch(0.812 0.138 79.4);
+  --chart-5: oklch(0.724 0.022 254.9);
+
+  --sidebar: oklch(0.239 0.029 258.9);
+  --sidebar-foreground: oklch(0.966 0.005 249.8);
+  --sidebar-primary: oklch(0.654 0.182 261.3);
+  --sidebar-primary-foreground: oklch(0.196 0.025 258.4);
+  --sidebar-accent: oklch(0.289 0.043 259.7);
+  --sidebar-accent-foreground: oklch(0.846 0.084 254.3);
+  --sidebar-border: oklch(0.326 0.031 257.6);
+  --sidebar-ring: oklch(0.654 0.182 261.3);
+}
+
+/*
+ * Night surface: the forecourt after dark.
+ *
+ * Near-black blue ground, a headlight beam washing in from the top right and
+ * fleet blue pooling at the bottom left. Used for page headers, the wallet
+ * card and the hero -- wherever the app should feel like standing on the
+ * forecourt rather than reading a page.
+ */
+@utility bg-hero {
+  background-color: var(--ink);
+  background-image:
+    radial-gradient(110% 80% at 100% 0%, color-mix(in oklch, var(--beam) 22%, transparent) 0%, transparent 56%),
+    radial-gradient(90% 75% at 0% 100%, color-mix(in oklch, var(--primary) 62%, transparent) 0%, transparent 72%),
+    linear-gradient(160deg, var(--ink) 0%, var(--ink-2) 100%);
+  color: var(--ink-foreground);
+}
+
+/* Lane marking: the thin blue line that closes a dark surface. */
+@utility brand-hairline {
+  height: 1px;
+  background-image: linear-gradient(90deg, transparent, var(--chrome) 28%, var(--sky) 50%, var(--chrome) 72%, transparent);
+}
+
+/*
+ * Stitching: the fine diagonal grain of upholstery.
+ *
+ * Two hairline sets crossing at a shallow angle, barely there. Laid over grey
+ * panels so a large empty surface has a texture to it instead of reading as a
+ * flat fill.
+ */
+@utility bg-stitch {
+  background-image:
+    repeating-linear-gradient(
+      -62deg,
+      color-mix(in oklch, var(--foreground) 4.5%, transparent) 0 1px,
+      transparent 1px 11px
+    ),
+    repeating-linear-gradient(
+      28deg,
+      color-mix(in oklch, var(--foreground) 3%, transparent) 0 1px,
+      transparent 1px 17px
+    );
+}
+
+/* The same grain, for dark surfaces. */
+@utility bg-stitch-dark {
+  background-image:
+    repeating-linear-gradient(
+      -62deg,
+      color-mix(in oklch, var(--sky) 9%, transparent) 0 1px,
+      transparent 1px 11px
+    ),
+    repeating-linear-gradient(
+      28deg,
+      color-mix(in oklch, var(--sky) 6%, transparent) 0 1px,
+      transparent 1px 17px
+    );
+}
+
+/* A dashed centre line, for dividing a dark panel. */
+@utility lane-dashes {
+  height: 2px;
+  background-image: linear-gradient(90deg, var(--sky) 0 18px, transparent 18px 34px);
+  background-size: 34px 2px;
+  opacity: 0.45;
+}
+
+/* Small uppercase label, spaced like an inscription. */
+@utility text-eyebrow {
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Soft two-layer elevation: a crisp contact shadow plus a long, faint drop. */
+@utility shadow-premium {
+  box-shadow:
+    0 1px 2px color-mix(in oklch, var(--ink) 8%, transparent),
+    0 12px 32px -16px color-mix(in oklch, var(--ink) 30%, transparent);
+}
+
+/*
+ * The notice rail: one continuous pass from right to left.
+ *
+ * The track carries the list twice and travels exactly half its width, so the
+ * second copy is where the first began and the loop has no seam. Edges are
+ * masked rather than cropped, so lines fade in and out instead of appearing.
+ */
+@keyframes field-ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.ticker {
+  mask-image: linear-gradient(90deg, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent);
+}
+
+.ticker-track {
+  animation: field-ticker 45s linear infinite;
+}
+
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
+}
+
+/* Horizontal rails scroll by swipe; the bar adds nothing. */
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1, h2, h3 {
+    @apply tracking-tight;
+  }
+}

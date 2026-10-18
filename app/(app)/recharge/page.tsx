@@ -1,0 +1,252 @@
+"use client"
+
+import type React from "react"
+
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  SmartPhone01Icon,
+  CheckmarkCircle01Icon,
+  InformationCircleIcon,
+} from "hugeicons-react"
+import Topbar from "@/components/shared/topbar"
+import { useMainStore } from "@/lib/stores/use-main-store"
+import { parseLimit } from "@/lib/limits/amount"
+import { toast } from "sonner"
+import { initiateDeposit } from "@/lib/backend/actions"
+
+const PRESET_AMOUNTS = [300, 900, 1200, 4500, 8500, 15000, 24000, 40000]
+
+export default function RechargePage() {
+  const [amount, setAmount] = useState("")
+  const [mpesaPhone, setMpesaPhone] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
+  const mainDetails = useMainStore((state) => state.mainDetails)
+  const fetchMainDetails = useMainStore((state) => state.fetchMainDetails)
+  const token = useMainStore((state) => state.token)
+
+  /**
+   * The minimum comes from the platform settings, not from this file.
+   *
+   * It used to be a hardcoded 400 that was *displayed* and never compared
+   * against, so the screen stated a floor it did not enforce -- a KSH 1
+   * deposit passed straight through to the STK push. null means "not known
+   * yet", which blocks rather than permits.
+   */
+  const minDeposit = parseLimit(mainDetails?.controls?.minDeposit)
+  const maxDeposit = 80000
+
+  const handleAmountSelect = (value: number) => {
+    setAmount(value.toString())
+    setError("")
+    setSuccessMessage("")
+  }
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9]/g, "")
+    setAmount(value)
+    setError("")
+    setSuccessMessage("")
+  }
+
+  const handleInitiateSTK = async () => {
+    setError("")
+    setSuccessMessage("")
+
+    const numAmount = Number.parseInt(amount)
+
+    if (!amount || numAmount <= 0) {
+      setError("Please enter a valid amount")
+      return
+    }
+
+    if (minDeposit === null) {
+      setError("Still loading deposit limits. Please try again in a moment.")
+      return
+    }
+
+    if (numAmount < minDeposit) {
+      setError(`Minimum deposit is KSH ${minDeposit}`)
+      return
+    }
+
+    if (numAmount > maxDeposit) {
+      setError(`Maximum deposit is KSH ${maxDeposit.toLocaleString()}`)
+      return
+    }
+
+    if (!/^0\d{9}$/.test(mpesaPhone) && !/^254\d{9}$/.test(mpesaPhone)) {
+      setError("Please enter a valid M-Pesa phone number")
+      return
+    }
+
+    setIsLoading(true)
+    try {
+      const response = await initiateDeposit({
+        userID: token,
+        amount: String(numAmount),
+        account: mpesaPhone,
+        method: "mpesa",
+      })
+      if (response.status === "Success") {
+        setSuccessMessage(response.message || "STK Push sent! Please check your phone and enter your M-Pesa PIN.")
+        fetchMainDetails(token)
+      } else {
+        setError(response.message || "Failed to initiate payment. Please try again.")
+      }
+    } catch (error) {
+      console.error("Error initiating STK push:", error)
+      setError("Failed to initiate payment. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <div>
+      <Topbar title="Top up" backBtn caption="M-Pesa STK push" />
+
+      <div className="mx-auto max-w-md flex-1 px-5 py-6">
+        {/* M-Pesa Info Banner */}
+        <div className="bg-hero relative overflow-hidden rounded-2xl p-5 mb-6 shadow-premium">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 bg-white/10 ring-1 ring-white/15 rounded-xl flex items-center justify-center">
+              <SmartPhone01Icon size={20} className="text-sky" />
+            </div>
+            <div>
+              <p className="text-eyebrow text-sky">Afinexa Wallet</p>
+              <h3 className="font-semibold text-ink-foreground">M-Pesa Deposit</h3>
+            </div>
+          </div>
+          <p className="text-sm text-ink-foreground/70 mt-3">
+            An STK push arrives on your phone to confirm.
+          </p>
+        </div>
+
+        {/* Amount Selection */}
+        <div className="space-y-4 mb-6">
+          <Label className="text-base font-semibold">Select Amount</Label>
+          <div className="grid grid-cols-3 gap-3">
+            {PRESET_AMOUNTS.map((preset) => (
+              <button
+                key={preset}
+                onClick={() => handleAmountSelect(preset)}
+                className={`h-11 px-2 rounded-xl font-semibold text-sm tabular-nums transition-all ${
+                  amount === preset.toString()
+                    ? "bg-primary text-primary-foreground shadow-premium"
+                    : "bg-card ring-1 ring-border hover:ring-primary"
+                }`}
+              >
+                KSH {preset.toLocaleString()}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Custom Amount */}
+        <div className="space-y-2 mb-6">
+          <Label htmlFor="amount">Or Enter Amount</Label>
+          <div className="relative">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">KSH</span>
+            <Input
+              id="amount"
+              type="text"
+              inputMode="numeric"
+              value={amount}
+              onChange={handleAmountChange}
+              placeholder="0"
+              className="pl-14 h-14 text-xl font-semibold tabular-nums"
+            />
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Min: KSH {minDeposit ?? "..."} | Max: KSH {maxDeposit.toLocaleString()}
+          </p>
+        </div>
+
+        {/* M-Pesa Phone Number */}
+        <div className="space-y-2 mb-6">
+          <Label htmlFor="mpesaPhone">M-Pesa Phone Number</Label>
+          <div className="relative">
+            <SmartPhone01Icon size={20} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              id="mpesaPhone"
+              type="tel"
+              value={mpesaPhone}
+              onChange={(e) => setMpesaPhone(e.target.value)}
+              placeholder="0712345678"
+              className="pl-10 h-12"
+            />
+          </div>
+          <p className="text-xs text-muted-foreground">Where the STK push is sent</p>
+        </div>
+
+        {error && (
+          <div className="bg-destructive/10 text-destructive text-sm p-3 rounded-xl text-center mb-6">{error}</div>
+        )}
+
+        {/*
+          The success token rather than primary. Primary is the brand blue,
+          used all over this screen for selection and actions, so a successful
+          STK push in blue would not stand apart -- and this is the one moment
+          a deposit screen needs to be unambiguous. Success is reserved for
+          exactly this across the app.
+        */}
+        {successMessage && (
+          <div className="bg-success-soft border border-success/20 rounded-xl p-4 mb-6 flex items-start gap-3">
+            <CheckmarkCircle01Icon size={20} className="text-success shrink-0 mt-0.5" />
+            <p className="text-sm text-success">{successMessage}</p>
+          </div>
+        )}
+
+        {/* Deposit Summary */}
+        {amount && Number.parseInt(amount) > 0 && (
+          <div className="bg-card ring-1 ring-border/70 rounded-2xl p-4 mb-6">
+            <h3 className="font-semibold mb-3 text-sm">Deposit Summary</h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Amount</span>
+                <span className="font-medium tabular-nums">KSH {Number.parseInt(amount).toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Transaction Fee</span>
+                <span className="font-medium text-success">Free</span>
+              </div>
+              <div className="h-px bg-border my-2" />
+              <div className="flex justify-between">
+                <span className="font-semibold">Total to Pay</span>
+                <span className="font-semibold text-foreground tabular-nums">KSH {Number.parseInt(amount).toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <Button
+          onClick={handleInitiateSTK}
+          className="w-full h-12 text-base font-semibold"
+          disabled={!amount || Number.parseInt(amount) <= 0 || isLoading}
+        >
+          {isLoading ? "Initiating..." : "Pay with M-Pesa"}
+        </Button>
+
+        {/* Instructions */}
+        <div className="mt-6 space-y-3">
+          <div className="flex items-start gap-3 p-4 bg-accent rounded-2xl">
+            <InformationCircleIcon size={20} className="text-primary shrink-0 mt-0.5" />
+            <div className="text-sm text-foreground">
+              <p className="font-semibold mb-1">How it works</p>
+              <ol className="list-decimal list-inside space-y-1 text-muted-foreground">
+                <li>Tap Pay with M-Pesa</li>
+                <li>Confirm the STK push with your PIN</li>
+                <li>Your balance updates</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

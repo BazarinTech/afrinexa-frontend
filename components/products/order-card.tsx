@@ -1,0 +1,90 @@
+"use client"
+
+import { useState } from "react"
+import Image from "next/image"
+import { productImageUrl } from "@/lib/media/image-url"
+import { Coins01Icon } from "hugeicons-react"
+import { Button } from "@/components/ui/button"
+import { PromotionDialog } from "./promotion-dialog"
+import { useCurrency } from "@/lib/hooks/use-currency"
+
+interface OrderCardProps {
+  name: string
+  image: string
+  image_url?: string
+  cycle: number
+  total: string
+  purchaseDate: string
+  status: string,
+  daily: number
+  roll: number
+  orderID: ID
+}
+
+export function OrderCard({ name, image, image_url, cycle, total, roll, status, daily, orderID }: OrderCardProps) {
+  const [isPromoting, setIsPromoting] = useState(false)
+  const src = productImageUrl(image_url, image);
+
+  return (
+    <>
+      <div className="rounded-2xl bg-card p-4 shadow-premium ring-1 ring-border/70 w-full">
+        <h3 className="mb-3 text-base font-semibold text-foreground">{name}</h3>
+
+        <div className="flex gap-4">
+          {/* Product Image */}
+          <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-muted" >
+            {/*
+              sizes tells Next which variant to generate. This box is 96px, so
+              without it the browser assumes full viewport width and downloads
+              the largest variant for a thumbnail.
+            */}
+            <Image
+              src={src}
+              alt={name}
+              fill
+              sizes="96px"
+              className="object-cover"
+            />
+            {status === "Expired" && (
+              <div className="absolute inset-0 flex items-center justify-center bg-ink/60">
+                <span className="text-eyebrow rounded-full bg-card px-2 py-0.5 text-foreground">
+                  RETURNED
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Product Details */}
+          <div className="flex flex-1 flex-col justify-center space-y-1">
+            
+            <div className="flex justify-between">
+              <span className="text-sm text-muted-foreground">Daily hire</span>
+              <span className="text-sm font-semibold text-primary tabular-nums">{useCurrency(daily)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-sm text-muted-foreground">Term</span>
+              <span className="text-sm font-semibold text-foreground tabular-nums">{cycle}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-sm text-muted-foreground">Billed so far</span>
+              <span className="text-sm font-semibold text-primary tabular-nums">{useCurrency(total)}</span>
+            </div>
+          </div>
+        </div>
+
+        {status === "Active" && (
+          <Button
+            onClick={() => setIsPromoting(true)}
+            className="mt-4 h-11 w-full text-sm font-semibold"
+            disabled={isPromoting || roll == 0}
+          >
+            <Coins01Icon className="mr-2 h-5 w-5" />
+            {roll == 0 ? "Already collected today" : `Collect hire`}
+          </Button>
+        )}
+      </div>
+
+      <PromotionDialog isOpen={isPromoting} onComplete={() => setIsPromoting(false)} productName={name} orderID={orderID} />
+    </>
+  )
+}
